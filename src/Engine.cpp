@@ -16,6 +16,14 @@ Engine::Engine(int width, int height, std::string title) :_title(title)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
 	_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	if (nullptr == _window) {
+		const char *description = NULL;
+
+		glfwGetError(&description);
+		std::cerr << description << std::endl;
+
+		throw new std::exception();
+	}
 
 	glfwMakeContextCurrent(_window);
 	glfwSetFramebufferSizeCallback(_window, Engine::FramebufferResize);
