@@ -12,6 +12,7 @@ public:
 	virtual bool Compile() = 0;
 
 	bool isLoaded() { return _loaded; }
+	GLuint getId() { return _id; }
 
 	const std::string& getSrc() const { return _src; }
 

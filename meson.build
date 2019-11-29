@@ -20,6 +20,7 @@ srcs = [
 	'src/shaders/AShader.cpp',
 	'src/shaders/FragmentShader.cpp',
 	'src/shaders/VertexShader.cpp',
+	'src/shaders/ShaderProgram.cpp',
 ]
 incs = include_directories('src/')
 
