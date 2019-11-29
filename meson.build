@@ -14,7 +14,13 @@ xrandr = dependency('xrandr', required : true)
 dl = meson.get_compiler('cpp').find_library('dl')
 m = meson.get_compiler('cpp').find_library('m')
 
-srcs = [ 'src/main.cpp', 'src/Engine.cpp' ]
+srcs = [
+	'src/main.cpp',
+	'src/Engine.cpp',
+	'src/AShader.cpp',
+	'src/FragmentShader.cpp',
+	'src/VertexShader.cpp',
+]
 incs = include_directories('inc/')
 
 executable('particle-system',

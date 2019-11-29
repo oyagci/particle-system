@@ -1,5 +1,4 @@
 #include "common.h"
-#include <iostream>
 #include "engine/Engine.hpp"
 
 int	main()
