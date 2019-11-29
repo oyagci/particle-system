@@ -16,12 +16,12 @@ m = meson.get_compiler('cpp').find_library('m')
 
 srcs = [
 	'src/main.cpp',
-	'src/Engine.cpp',
-	'src/AShader.cpp',
-	'src/FragmentShader.cpp',
-	'src/VertexShader.cpp',
+	'src/engine/Engine.cpp',
+	'src/shaders/AShader.cpp',
+	'src/shaders/FragmentShader.cpp',
+	'src/shaders/VertexShader.cpp',
 ]
-incs = include_directories('inc/')
+incs = include_directories('src/')
 
 executable('particle-system',
 	srcs,
