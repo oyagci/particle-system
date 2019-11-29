@@ -6,23 +6,17 @@ int Engine::_height = 720;
 
 Engine::Engine(int width, int height, std::string title) :_title(title)
 {
-	if (glfwInit() != GLFW_TRUE) {
-		throw new std::exception();
-	}
+	if (width < 0 || height < 0) throw InvalidWindowSize();
+	if (glfwInit() != GLFW_TRUE) throw GLFWLoadingError();
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
 	_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (nullptr == _window) {
-		const char *description = NULL;
-
-		glfwGetError(&description);
-		std::cerr << description << std::endl;
-
-		throw new std::exception();
+		throw GLFWLoadingError();
 	}
 
 	glfwMakeContextCurrent(_window);
@@ -31,8 +25,7 @@ Engine::Engine(int width, int height, std::string title) :_title(title)
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
-		std::cerr << "GLEW: " << glewGetErrorString(err) << std::endl;
-		throw new std::exception();
+		throw GLEWLoadingError(err);
 	}
 
 	glViewport(0, 0, _width, _height);
