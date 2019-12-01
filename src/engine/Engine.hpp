@@ -2,6 +2,8 @@
 
 #include "common.h"
 #include <string>
+#include <vector>
+#include "IRenderable.h"
 
 class Engine
 {
@@ -17,8 +19,11 @@ public:
 
 	void SetTitle(std::string const title) { _title = title; }
 
+	void AddRenderable(IRenderable *r);
+
 private:
 	void ProcessInputs();
+	void Render();
 
 private:
 	bool _isRunning = false;
@@ -26,6 +31,7 @@ private:
 	static int _width;
 	static int _height;
 	std::string _title;
+	std::vector<IRenderable*> _renderables;
 
 	static void FramebufferResize(GLFWwindow *win, int width, int height);
 

@@ -46,6 +46,7 @@ int	Engine::Run()
 		glfwPollEvents();
 		glfwSwapBuffers(_window);
 
+		Render();
 		ProcessInputs();
 		_isRunning = !glfwWindowShouldClose(_window);
 	}
@@ -63,5 +64,17 @@ void Engine::ProcessInputs()
 {
 	if (glfwGetKey(_window, GLFW_KEY_ESCAPE)) {
 		glfwSetWindowShouldClose(_window, GLFW_TRUE);
+	}
+}
+
+void Engine::AddRenderable(IRenderable *r)
+{
+	_renderables.push_back(r);
+}
+
+void Engine::Render()
+{
+	for (auto &renderable : _renderables) {
+		renderable->OnRender();
 	}
 }
