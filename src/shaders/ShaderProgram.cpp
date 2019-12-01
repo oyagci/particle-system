@@ -12,12 +12,12 @@ bool ShaderProgram::Compile()
 	glAttachShader(program, _vs->getId());
 	glAttachShader(program, _fs->getId());
 	glLinkProgram(program);
-	glGetShaderiv(program, GL_LINK_STATUS, &success);
 
-	if (success == 0) {
-		GLchar buf[512] = { 0 };
-		glGetProgramInfoLog(program, 512, NULL, buf);
-		std::cout << buf << std::endl;
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (!success) {
+		GLchar buf[1024] = { 0 };
+		glGetProgramInfoLog(program, 1024, nullptr, buf);
+		std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED: " << buf << std::endl;
 	}
 
 	_id = program;
