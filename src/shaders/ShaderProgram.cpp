@@ -19,8 +19,9 @@ bool ShaderProgram::Compile()
 		glGetProgramInfoLog(program, 1024, nullptr, buf);
 		std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED: " << buf << std::endl;
 	}
-
-	_id = program;
+	else {
+		_id = program;
+	}
 
 	return static_cast<bool>(success);
 }

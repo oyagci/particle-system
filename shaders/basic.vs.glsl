@@ -4,5 +4,6 @@ layout (location = 0) in vec3 vPos;
 
 void main()
 {
+	gl_PointSize = 10.0f;
 	gl_Position = vec4(vPos, 1.0f);
 }

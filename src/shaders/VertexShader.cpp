@@ -34,7 +34,7 @@ bool VertexShader::Compile()
 		char buf[512];
 		glGetShaderInfoLog(shader, sizeof(buf), nullptr, buf);
 
-		std::cerr << buf << std::endl;
+		std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED " << buf << std::endl;
 	}
 
 	return static_cast<bool>(success);

@@ -3,6 +3,7 @@
 #include "common.h"
 #include <string>
 
+#include <iostream>
 class AShader
 {
 public:

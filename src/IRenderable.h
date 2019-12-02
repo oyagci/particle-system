@@ -3,6 +3,6 @@
 class IRenderable
 {
 public:
-	virtual ~IRenderable() = 0;
+	virtual ~IRenderable() {};
 	virtual void OnRender() = 0;
 };

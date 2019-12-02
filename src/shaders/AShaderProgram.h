@@ -7,7 +7,7 @@
 class AShaderProgram
 {
 public:
-	virtual ~AShaderProgram() { };
+	virtual ~AShaderProgram() {};
 
 	virtual bool Compile() = 0;
 	virtual void SetVertex(std::unique_ptr<VertexShader> vs)
@@ -18,6 +18,7 @@ public:
 	{
 		_fs = std::move(fs);
 	}
+	virtual void Use() { glUseProgram(_id); };
 
 protected:
 	GLuint _id;

@@ -21,6 +21,7 @@ srcs = [
 	'src/shaders/FragmentShader.cpp',
 	'src/shaders/VertexShader.cpp',
 	'src/shaders/ShaderProgram.cpp',
+	'src/Particle.cpp',
 ]
 incs = include_directories('src/')
 

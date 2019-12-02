@@ -12,7 +12,9 @@ Engine::Engine(int width, int height, std::string title) :_title(title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+#endif
 
 	_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (nullptr == _window) {
@@ -29,7 +31,8 @@ Engine::Engine(int width, int height, std::string title) :_title(title)
 	}
 
 	glViewport(0, 0, _width, _height);
-	glEnable(GL_DEPTH_TEST);
+//	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_PROGRAM_POINT_SIZE);
 }
 
 Engine::~Engine()
@@ -44,10 +47,10 @@ int	Engine::Run()
 
 	while (_isRunning) {
 		glfwPollEvents();
-		glfwSwapBuffers(_window);
 
 		Render();
 		ProcessInputs();
+
 		_isRunning = !glfwWindowShouldClose(_window);
 	}
 	return (0);
@@ -67,14 +70,17 @@ void Engine::ProcessInputs()
 	}
 }
 
-void Engine::AddRenderable(IRenderable *r)
+void Engine::AddRenderable(std::unique_ptr<IRenderable> r)
 {
-	_renderables.push_back(r);
+	_renderables.push_back(std::move(r));
 }
 
 void Engine::Render()
 {
+	glClearColor(.1f, .1f, .1f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	for (auto &renderable : _renderables) {
 		renderable->OnRender();
 	}
+	glfwSwapBuffers(_window);
 }

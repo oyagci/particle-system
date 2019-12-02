@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "IRenderable.h"
+#include <memory>
 
 class Engine
 {
@@ -14,12 +15,13 @@ public:
 
 	int	Run();
 
-	int GetWidth() { return _width; }
-	int GetHeight() { return _height; }
+	int GetWidth() const { return _width; }
+	int GetHeight() const { return _height; }
+	GLFWwindow *GetWindow() const { return _window; }
 
 	void SetTitle(std::string const title) { _title = title; }
 
-	void AddRenderable(IRenderable *r);
+	void AddRenderable(std::unique_ptr<IRenderable> r);
 
 private:
 	void ProcessInputs();
@@ -31,7 +33,7 @@ private:
 	static int _width;
 	static int _height;
 	std::string _title;
-	std::vector<IRenderable*> _renderables;
+	std::vector<std::unique_ptr<IRenderable>> _renderables;
 
 	static void FramebufferResize(GLFWwindow *win, int width, int height);
 
